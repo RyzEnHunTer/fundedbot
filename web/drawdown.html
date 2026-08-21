@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawdown & Risk Management | Advanced Quantitative Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        
+    <div class="sidebar">
+        <h2>Quant<span>Pro</span></h2>
+        <ul>
+    <li><a href="index.html" ><i class="fas fa-chart-line"></i> Dashboard</a></li><li><a href="drawdown.html" class="active"><i class="fas fa-shield-alt"></i> Drawdown & Risk</a></li><li><a href="pnl.html" ><i class="fas fa-money-bill-wave"></i> Daily PnL</a></li><li><a href="heatmap.html" ><i class="fas fa-fire"></i> Session Heatmaps</a></li><li><a href="trades.html" ><i class="fas fa-list"></i> Trade Logs</a></li>
+        </ul>
+        <div class="version-info">
+            <p>Backtest Engine v2.4</p>
+            <p>Data: June - Aug 2026</p>
+        </div>
+    </div>
+    
+        <div class="main-content">
+            <header>
+                <h1>Drawdown & Risk Management</h1>
+                <div class="date-range"><i class="far fa-calendar-alt"></i> June 2026 &mdash; August 2026</div>
+            </header>
+            <div class="content-body">
+                
+    <div class="metrics-grid">
+        <div class="metric-card"><h4>Global Max Drawdown</h4><div class="value" style="color:var(--loss-color)">-7.57%</div></div>
+        <div class="metric-card"><h4>Max Daily Drawdown</h4><div class="value" style="color:var(--loss-color)">-2.15%</div></div>
+        <div class="metric-card"><h4>Prop Firm Status</h4><div class="value" style="color:var(--win-color)">PASSED</div></div>
+    </div>
+    <div class="card">
+        <h3><i class="fas fa-water"></i> Underwater Drawdown Analysis</h3>
+        <p style="color:var(--text-muted); margin-bottom:1rem;">Visualizing the depth and duration of capital drawdowns. Crucial for Prop Firm daily loss limits.</p>
+        <img src="assets/drawdown_underwater.png" alt="Drawdown">
+    </div>
+    
+            </div>
+        </div>
+    </div>
+</body>
+</html>

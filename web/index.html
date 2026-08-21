@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden 5 Prop Engine Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Golden 5 Prop Engine</h1>
+            <div class="subtitle">Dynamic Session Backtest Report (Summer 2026)</div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('dashboard')">Global Dashboard</button>
+            <button class="tab-btn" onclick="openTab('monthly')">Monthly Report</button>
+            <button class="tab-btn" onclick="openTab('drawdown')">Drawdown Report</button>
+            <button class="tab-btn" onclick="openTab('trades')">Trade Logs</button>
+        </div>
+        
+        <!-- DASHBOARD TAB -->
+        <div id="dashboard" class="tab-content active">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Total Trades</div>
+                    <div class="metric-value">53</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Win Rate</div>
+                    <div class="metric-value">41.5%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Net Profit</div>
+                    <div class="metric-value positive">+$2361.91</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Total ROI</div>
+                    <div class="metric-value positive">+47.2%</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h2 style="margin-top:0; color:#94a3b8; font-size:1.2rem;">Global Equity Curve</h2>
+                <canvas id="equityChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- MONTHLY TAB -->
+        <div id="monthly" class="tab-content">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">June Performance</div>
+                    <div class="metric-value positive">+15.4%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">
+                        Win Rate: 37.5%<br>
+                        Trades: 24<br>
+                        Net PnL: $771.41
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">July Performance</div>
+                    <div class="metric-value positive">+33.3%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">
+                        Win Rate: 46.4%<br>
+                        Trades: 28<br>
+                        Net PnL: $1665.11
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">August Performance</div>
+                    <div class="metric-value negative">-1.5%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">
+                        Win Rate: 0.0%<br>
+                        Trades: 1<br>
+                        Net PnL: $-74.62
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DRAWDOWN TAB -->
+        <div id="drawdown" class="tab-content">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Max Global Drawdown</div>
+                    <div class="metric-value" style="color: #f59e0b;">{summary['max_dd']:.2f}%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">June Max DD</div>
+                    <div class="metric-value" style="color: #ef4444;">8.02%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">Max Daily DD: 4.10%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">July Max DD</div>
+                    <div class="metric-value" style="color: #ef4444;">7.56%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">Max Daily DD: 4.22%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">August Max DD</div>
+                    <div class="metric-value" style="color: #ef4444;">1.00%</div>
+                    <div style="color: #94a3b8; margin-top: 10px; font-size: 0.9rem;">Max Daily DD: 1.49%</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TRADES TAB -->
+        <div id="trades" class="tab-content">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pair</th>
+                            <th>Type</th>
+                            <th>Entry Time</th>
+                            <th>Exit Time</th>
+                            <th>Entry Price</th>
+                            <th>Exit Price</th>
+                            <th>PnL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-01 08:18</td>
+                            <td>2026-06-01 12:51</td>
+                            <td>185.81600</td>
+                            <td>185.49800</td>
+                            <td class="positive"><strong>+$195.00</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-01 23:10</td>
+                            <td>2026-06-02 05:11</td>
+                            <td>1.16322</td>
+                            <td>1.16448</td>
+                            <td class="positive"><strong>+$195.00</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-01 23:59</td>
+                            <td>2026-06-02 00:03</td>
+                            <td>185.70800</td>
+                            <td>185.74400</td>
+                            <td class="positive"><strong>+$202.60</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-02 07:30</td>
+                            <td>2026-06-02 09:20</td>
+                            <td>186.01900</td>
+                            <td>185.91700</td>
+                            <td class="positive"><strong>+$210.51</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-02 09:41</td>
+                            <td>2026-06-02 09:53</td>
+                            <td>1.16427</td>
+                            <td>1.16454</td>
+                            <td class="negative"><strong>-$67.53</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-03 23:31</td>
+                            <td>2026-06-04 00:00</td>
+                            <td>1.16089</td>
+                            <td>1.16054</td>
+                            <td class="negative"><strong>-$66.66</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-04 10:12</td>
+                            <td>2026-06-04 10:17</td>
+                            <td>0.99181</td>
+                            <td>0.99241</td>
+                            <td class="negative"><strong>-$65.00</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-08 10:11</td>
+                            <td>2026-06-08 10:20</td>
+                            <td>1.15271</td>
+                            <td>1.15398</td>
+                            <td class="negative"><strong>-$65.79</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-09 03:07</td>
+                            <td>2026-06-09 03:40</td>
+                            <td>184.89800</td>
+                            <td>184.94700</td>
+                            <td class="negative"><strong>-$72.91</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-09 10:35</td>
+                            <td>2026-06-09 12:37</td>
+                            <td>0.98295</td>
+                            <td>0.98207</td>
+                            <td class="negative"><strong>-$64.16</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-10 01:08</td>
+                            <td>2026-06-10 01:23</td>
+                            <td>0.97981</td>
+                            <td>0.97947</td>
+                            <td class="negative"><strong>-$63.32</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-10 23:33</td>
+                            <td>2026-06-11 12:45</td>
+                            <td>0.97567</td>
+                            <td>0.97843</td>
+                            <td class="positive"><strong>+$187.49</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-11 23:54</td>
+                            <td>2026-06-12 00:10</td>
+                            <td>0.98443</td>
+                            <td>0.98374</td>
+                            <td class="positive"><strong>+$194.81</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-12 09:26</td>
+                            <td>2026-06-12 09:57</td>
+                            <td>185.35500</td>
+                            <td>185.28700</td>
+                            <td class="negative"><strong>-$71.96</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-16 00:07</td>
+                            <td>2026-06-16 00:11</td>
+                            <td>0.98918</td>
+                            <td>0.98887</td>
+                            <td class="negative"><strong>-$67.47</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-16 20:11</td>
+                            <td>2026-06-16 20:12</td>
+                            <td>186.24900</td>
+                            <td>186.22300</td>
+                            <td class="negative"><strong>-$71.02</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-17 23:56</td>
+                            <td>2026-06-18 00:11</td>
+                            <td>0.98987</td>
+                            <td>0.99095</td>
+                            <td class="positive"><strong>+$199.77</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-18 21:24</td>
+                            <td>2026-06-19 02:16</td>
+                            <td>184.90500</td>
+                            <td>184.53300</td>
+                            <td class="positive"><strong>+$210.30</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-22 09:08</td>
+                            <td>2026-06-22 09:09</td>
+                            <td>185.31800</td>
+                            <td>185.37100</td>
+                            <td class="negative"><strong>-$72.83</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-06-22 22:01</td>
+                            <td>2026-06-22 23:00</td>
+                            <td>199.78100</td>
+                            <td>199.71600</td>
+                            <td class="negative"><strong>-$65.00</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-25 00:51</td>
+                            <td>2026-06-25 02:01</td>
+                            <td>183.71700</td>
+                            <td>183.78600</td>
+                            <td class="negative"><strong>-$71.89</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-25 03:26</td>
+                            <td>2026-06-25 11:30</td>
+                            <td>0.98173</td>
+                            <td>0.98265</td>
+                            <td class="negative"><strong>-$69.19</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-25 23:24</td>
+                            <td>2026-06-25 23:47</td>
+                            <td>199.64000</td>
+                            <td>199.73000</td>
+                            <td class="negative"><strong>-$64.16</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-06-30 00:25</td>
+                            <td>2026-06-30 01:54</td>
+                            <td>1.14128</td>
+                            <td>1.14008</td>
+                            <td class="positive"><strong>+$194.81</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-01 01:57</td>
+                            <td>2026-07-01 03:30</td>
+                            <td>201.13500</td>
+                            <td>200.95800</td>
+                            <td class="positive"><strong>+$189.96</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-01 22:50</td>
+                            <td>2026-07-01 23:19</td>
+                            <td>200.84500</td>
+                            <td>200.79400</td>
+                            <td class="negative"><strong>-$65.79</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-02 02:57</td>
+                            <td>2026-07-02 04:49</td>
+                            <td>200.82600</td>
+                            <td>200.75600</td>
+                            <td class="negative"><strong>-$64.94</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-07 02:46</td>
+                            <td>2026-07-07 04:21</td>
+                            <td>0.98724</td>
+                            <td>0.98615</td>
+                            <td class="negative"><strong>-$68.29</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-07 20:32</td>
+                            <td>2026-07-08 05:22</td>
+                            <td>200.52100</td>
+                            <td>200.97700</td>
+                            <td class="positive"><strong>+$192.27</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-07 23:34</td>
+                            <td>2026-07-08 02:12</td>
+                            <td>0.98389</td>
+                            <td>0.98557</td>
+                            <td class="positive"><strong>+$202.20</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-08 04:56</td>
+                            <td>2026-07-08 05:23</td>
+                            <td>0.98474</td>
+                            <td>0.98426</td>
+                            <td class="positive"><strong>+$210.09</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-08 07:37</td>
+                            <td>2026-07-08 08:04</td>
+                            <td>185.29500</td>
+                            <td>185.22000</td>
+                            <td class="negative"><strong>-$70.95</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-08 08:35</td>
+                            <td>2026-07-08 16:06</td>
+                            <td>1.14097</td>
+                            <td>1.14187</td>
+                            <td class="negative"><strong>-$67.47</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-09 10:15</td>
+                            <td>2026-07-09 10:52</td>
+                            <td>1.14256</td>
+                            <td>1.14286</td>
+                            <td class="negative"><strong>-$66.59</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-09 23:26</td>
+                            <td>2026-07-09 23:33</td>
+                            <td>0.98308</td>
+                            <td>0.98283</td>
+                            <td class="negative"><strong>-$72.76</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-09 23:53</td>
+                            <td>2026-07-10 00:38</td>
+                            <td>0.98321</td>
+                            <td>0.98293</td>
+                            <td class="negative"><strong>-$71.81</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-16 04:33</td>
+                            <td>2026-07-16 04:45</td>
+                            <td>185.93300</td>
+                            <td>185.88500</td>
+                            <td class="positive"><strong>+$210.09</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-17 00:56</td>
+                            <td>2026-07-17 01:34</td>
+                            <td>185.83600</td>
+                            <td>185.79200</td>
+                            <td class="negative"><strong>-$72.76</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-20 09:56</td>
+                            <td>2026-07-20 10:30</td>
+                            <td>201.03900</td>
+                            <td>201.10100</td>
+                            <td class="negative"><strong>-$66.59</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-20 10:36</td>
+                            <td>2026-07-20 11:31</td>
+                            <td>0.98368</td>
+                            <td>0.98403</td>
+                            <td class="negative"><strong>-$70.88</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-21 00:02</td>
+                            <td>2026-07-21 00:29</td>
+                            <td>200.53900</td>
+                            <td>200.50200</td>
+                            <td class="negative"><strong>-$65.72</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURUSD</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-22 11:03</td>
+                            <td>2026-07-22 11:34</td>
+                            <td>1.14084</td>
+                            <td>1.14135</td>
+                            <td class="negative"><strong>-$65.72</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-23 07:28</td>
+                            <td>2026-07-23 10:45</td>
+                            <td>200.49400</td>
+                            <td>200.19700</td>
+                            <td class="positive"><strong>+$194.61</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-24 01:50</td>
+                            <td>2026-07-24 06:27</td>
+                            <td>200.44700</td>
+                            <td>200.74400</td>
+                            <td class="positive"><strong>+$202.20</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-28 20:38</td>
+                            <td>2026-07-28 23:53</td>
+                            <td>186.57600</td>
+                            <td>186.42300</td>
+                            <td class="positive"><strong>+$215.44</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-28 23:00</td>
+                            <td>2026-07-29 00:57</td>
+                            <td>199.89700</td>
+                            <td>200.02700</td>
+                            <td class="negative"><strong>-$70.03</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AUDCAD</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-29 23:45</td>
+                            <td>2026-07-30 08:47</td>
+                            <td>0.97621</td>
+                            <td>0.97957</td>
+                            <td class="positive"><strong>+$209.88</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-07-30 08:29</td>
+                            <td>2026-07-30 09:13</td>
+                            <td>200.64700</td>
+                            <td>200.41600</td>
+                            <td class="positive"><strong>+$207.36</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-30 20:26</td>
+                            <td>2026-07-30 20:42</td>
+                            <td>183.82400</td>
+                            <td>183.91100</td>
+                            <td class="positive"><strong>+$223.85</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-30 22:01</td>
+                            <td>2026-07-30 22:11</td>
+                            <td>184.02500</td>
+                            <td>184.18400</td>
+                            <td class="positive"><strong>+$232.58</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-30 22:01</td>
+                            <td>2026-07-30 23:05</td>
+                            <td>198.21300</td>
+                            <td>198.86100</td>
+                            <td class="positive"><strong>+$215.44</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EURJPY</strong></td>
+                            <td style="text-transform: uppercase;">long</td>
+                            <td>2026-07-31 00:43</td>
+                            <td>2026-07-31 01:52</td>
+                            <td>184.92900</td>
+                            <td>184.77500</td>
+                            <td class="negative"><strong>-$80.55</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHFJPY</strong></td>
+                            <td style="text-transform: uppercase;">short</td>
+                            <td>2026-08-04 23:31</td>
+                            <td>2026-08-05 02:34</td>
+                            <td>194.88600</td>
+                            <td>194.97700</td>
+                            <td class="negative"><strong>-$74.62</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        const ctx = document.getElementById('equityChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Start", "Trade 1", "Trade 2", "Trade 3", "Trade 4", "Trade 5", "Trade 6", "Trade 7", "Trade 8", "Trade 9", "Trade 10", "Trade 11", "Trade 12", "Trade 13", "Trade 14", "Trade 15", "Trade 16", "Trade 17", "Trade 18", "Trade 19", "Trade 20", "Trade 21", "Trade 22", "Trade 23", "Trade 24", "Trade 25", "Trade 26", "Trade 27", "Trade 28", "Trade 29", "Trade 30", "Trade 31", "Trade 32", "Trade 33", "Trade 34", "Trade 35", "Trade 36", "Trade 37", "Trade 38", "Trade 39", "Trade 40", "Trade 41", "Trade 42", "Trade 43", "Trade 44", "Trade 45", "Trade 46", "Trade 47", "Trade 48", "Trade 49", "Trade 50", "Trade 51", "Trade 52", "Trade 53"],
+                datasets: [{
+                    label: 'Account Equity ($)',
+                    data: [5000.0, 5195.0, 5390.0, 5592.605, 5803.111594999999, 5735.5765949999995, 5668.91955, 5603.91955, 5538.129046585, 5465.22359585, 5401.06859585, 5337.74761085, 5525.241047435, 5720.046728046815, 5648.0890481713695, 5580.621347452811, 5509.599117415747, 5709.370979243399, 5919.667802383146, 5846.8350026357475, 5781.8350026357475, 5709.949029285064, 5640.7613744720875, 5576.606374472088, 5771.4120550839025, 5961.375010083902, 5895.584506668903, 5830.649279798297, 5762.361064497889, 5954.634271261751, 6156.835676766259, 6366.922937085444, 6295.971481388319, 6228.503780669761, 6161.913160060543, 6089.152938903332, 6017.338600621165, 6227.425860940349, 6154.6656397831375, 6088.07501917392, 6017.194267289421, 5951.469324748124, 5885.744382206826, 6080.355937071608, 6282.557342576117, 6498.0003574226175, 6427.971270649556, 6637.849176979556, 6845.205302914591, 7069.050595340105, 7301.625854170215, 7517.068869016715, 7436.520304375221, 7361.905206900049],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

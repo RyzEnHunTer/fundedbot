@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Analysis & Logs | Advanced Quantitative Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        
+    <div class="sidebar">
+        <h2>Quant<span>Pro</span></h2>
+        <ul>
+    <li><a href="index.html" ><i class="fas fa-chart-line"></i> Dashboard</a></li><li><a href="drawdown.html" ><i class="fas fa-shield-alt"></i> Drawdown & Risk</a></li><li><a href="pnl.html" ><i class="fas fa-money-bill-wave"></i> Daily PnL</a></li><li><a href="heatmap.html" ><i class="fas fa-fire"></i> Session Heatmaps</a></li><li><a href="trades.html" class="active"><i class="fas fa-list"></i> Trade Logs</a></li>
+        </ul>
+        <div class="version-info">
+            <p>Backtest Engine v2.4</p>
+            <p>Data: June - Aug 2026</p>
+        </div>
+    </div>
+    
+        <div class="main-content">
+            <header>
+                <h1>Trade Analysis & Logs</h1>
+                <div class="date-range"><i class="far fa-calendar-alt"></i> June 2026 &mdash; August 2026</div>
+            </header>
+            <div class="content-body">
+                
+    <div class="card">
+        <h3><i class="fas fa-bullseye"></i> Risk/Reward Scatter Distribution</h3>
+        <img src="assets/trade_scatter.png" alt="Scatter">
+    </div>
+    <div class="card">
+        <h3><i class="fas fa-history"></i> Raw Trade Log</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Pair</th><th>Date (EST)</th><th>Result</th><th>Net PnL</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>EURJPY</td><td>2026-06-01 03:05</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>2</td><td>GBPUSD</td><td>2026-06-01 03:20</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>3</td><td>EURJPY</td><td>2026-06-02 07:30</td><td><span class='win'>WIN</span></td><td>$43.32</td></tr><tr><td>4</td><td>USDJPY</td><td>2026-06-02 08:30</td><td><span class='win'>WIN</span></td><td>$234.60</td></tr><tr><td>5</td><td>GBPUSD</td><td>2026-06-02 09:55</td><td><span class='loss'>LOSS</span></td><td>$-45.47</td></tr><tr><td>6</td><td>EURUSD</td><td>2026-06-03 23:31</td><td><span class='loss'>LOSS</span></td><td>$-46.48</td></tr><tr><td>7</td><td>AUDCAD</td><td>2026-06-04 10:12</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>8</td><td>EURUSD</td><td>2026-06-08 10:11</td><td><span class='loss'>LOSS</span></td><td>$-45.94</td></tr><tr><td>9</td><td>EURJPY</td><td>2026-06-09 03:07</td><td><span class='loss'>LOSS</span></td><td>$-60.80</td></tr><tr><td>10</td><td>AUDCAD</td><td>2026-06-09 10:35</td><td><span class='loss'>LOSS</span></td><td>$-45.47</td></tr><tr><td>11</td><td>USDJPY</td><td>2026-06-10 00:53</td><td><span class='loss'>LOSS</span></td><td>$-48.70</td></tr><tr><td>12</td><td>AUDCAD</td><td>2026-06-10 01:08</td><td><span class='loss'>LOSS</span></td><td>$-44.95</td></tr><tr><td>13</td><td>AUDCAD</td><td>2026-06-11 23:54</td><td><span class='win'>WIN</span></td><td>$239.89</td></tr><tr><td>14</td><td>USDJPY</td><td>2026-06-12 00:11</td><td><span class='loss'>LOSS</span></td><td>$-60.17</td></tr><tr><td>15</td><td>EURJPY</td><td>2026-06-12 09:26</td><td><span class='loss'>LOSS</span></td><td>$-48.08</td></tr><tr><td>16</td><td>USDJPY</td><td>2026-06-15 23:53</td><td><span class='win'>WIN</span></td><td>$53.53</td></tr><tr><td>17</td><td>AUDCAD</td><td>2026-06-16 00:07</td><td><span class='loss'>LOSS</span></td><td>$-49.80</td></tr><tr><td>18</td><td>USDJPY</td><td>2026-06-16 04:14</td><td><span class='loss'>LOSS</span></td><td>$-48.08</td></tr><tr><td>19</td><td>USDJPY</td><td>2026-06-17 17:01</td><td><span class='loss'>LOSS</span></td><td>$-47.52</td></tr><tr><td>20</td><td>AUDCAD</td><td>2026-06-17 23:56</td><td><span class='win'>WIN</span></td><td>$251.04</td></tr><tr><td>21</td><td>EURJPY</td><td>2026-06-18 21:24</td><td><span class='win'>WIN</span></td><td>$52.85</td></tr><tr><td>22</td><td>USDJPY</td><td>2026-06-18 23:11</td><td><span class='loss'>LOSS</span></td><td>$-58.72</td></tr><tr><td>23</td><td>GBPUSD</td><td>2026-06-22 08:02</td><td><span class='win'>WIN</span></td><td>$229.24</td></tr><tr><td>24</td><td>EURJPY</td><td>2026-06-22 09:08</td><td><span class='loss'>LOSS</span></td><td>$-47.46</td></tr><tr><td>25</td><td>CHFJPY</td><td>2026-06-22 22:01</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>26</td><td>USDJPY</td><td>2026-06-25 00:50</td><td><span class='loss'>LOSS</span></td><td>$-46.44</td></tr><tr><td>27</td><td>EURJPY</td><td>2026-06-25 00:51</td><td><span class='loss'>LOSS</span></td><td>$-46.92</td></tr><tr><td>28</td><td>USDJPY</td><td>2026-06-26 08:41</td><td><span class='loss'>LOSS</span></td><td>$-45.38</td></tr><tr><td>29</td><td>USDJPY</td><td>2026-06-26 09:07</td><td><span class='win'>WIN</span></td><td>$228.75</td></tr><tr><td>30</td><td>EURUSD</td><td>2026-06-30 00:25</td><td><span class='win'>WIN</span></td><td>$289.51</td></tr><tr><td>31</td><td>GBPUSD</td><td>2026-06-30 05:42</td><td><span class='win'>WIN</span></td><td>$239.89</td></tr><tr><td>32</td><td>USDJPY</td><td>2026-06-30 20:09</td><td><span class='loss'>LOSS</span></td><td>$-47.48</td></tr><tr><td>33</td><td>CHFJPY</td><td>2026-07-01 01:57</td><td><span class='win'>WIN</span></td><td>$40.45</td></tr><tr><td>34</td><td>CHFJPY</td><td>2026-07-01 22:50</td><td><span class='loss'>LOSS</span></td><td>$-45.41</td></tr><tr><td>35</td><td>CHFJPY</td><td>2026-07-02 02:57</td><td><span class='loss'>LOSS</span></td><td>$-44.89</td></tr><tr><td>36</td><td>AUDCAD</td><td>2026-07-07 02:46</td><td><span class='loss'>LOSS</span></td><td>$-51.51</td></tr><tr><td>37</td><td>CHFJPY</td><td>2026-07-07 20:32</td><td><span class='win'>WIN</span></td><td>$282.89</td></tr><tr><td>38</td><td>AUDCAD</td><td>2026-07-07 23:34</td><td><span class='win'>WIN</span></td><td>$57.28</td></tr><tr><td>39</td><td>EURJPY</td><td>2026-07-08 07:37</td><td><span class='loss'>LOSS</span></td><td>$-57.97</td></tr><tr><td>40</td><td>USDJPY</td><td>2026-07-08 07:48</td><td><span class='loss'>LOSS</span></td><td>$-58.67</td></tr><tr><td>41</td><td>EURUSD</td><td>2026-07-09 10:15</td><td><span class='loss'>LOSS</span></td><td>$-47.52</td></tr><tr><td>42</td><td>USDJPY</td><td>2026-07-09 11:03</td><td><span class='loss'>LOSS</span></td><td>$-46.40</td></tr><tr><td>43</td><td>EURJPY</td><td>2026-07-16 04:33</td><td><span class='win'>WIN</span></td><td>$41.26</td></tr><tr><td>44</td><td>EURJPY</td><td>2026-07-17 00:56</td><td><span class='loss'>LOSS</span></td><td>$-46.32</td></tr><tr><td>45</td><td>CHFJPY</td><td>2026-07-20 09:56</td><td><span class='loss'>LOSS</span></td><td>$-46.98</td></tr><tr><td>46</td><td>AUDCAD</td><td>2026-07-20 10:36</td><td><span class='loss'>LOSS</span></td><td>$-50.27</td></tr><tr><td>47</td><td>CHFJPY</td><td>2026-07-21 00:02</td><td><span class='loss'>LOSS</span></td><td>$-46.44</td></tr><tr><td>48</td><td>EURJPY</td><td>2026-07-21 00:02</td><td><span class='loss'>LOSS</span></td><td>$-45.79</td></tr><tr><td>49</td><td>EURUSD</td><td>2026-07-22 11:03</td><td><span class='loss'>LOSS</span></td><td>$-46.98</td></tr><tr><td>50</td><td>CHFJPY</td><td>2026-07-23 07:28</td><td><span class='win'>WIN</span></td><td>$51.64</td></tr><tr><td>51</td><td>EURJPY</td><td>2026-07-23 22:42</td><td><span class='loss'>LOSS</span></td><td>$-56.58</td></tr><tr><td>52</td><td>CHFJPY</td><td>2026-07-24 01:50</td><td><span class='win'>WIN</span></td><td>$41.74</td></tr><tr><td>53</td><td>EURJPY</td><td>2026-07-28 20:38</td><td><span class='win'>WIN</span></td><td>$40.27</td></tr><tr><td>54</td><td>CHFJPY</td><td>2026-07-28 23:00</td><td><span class='loss'>LOSS</span></td><td>$-46.86</td></tr><tr><td>55</td><td>AUDCAD</td><td>2026-07-29 23:45</td><td><span class='win'>WIN</span></td><td>$316.78</td></tr><tr><td>56</td><td>CHFJPY</td><td>2026-07-30 08:29</td><td><span class='win'>WIN</span></td><td>$295.29</td></tr><tr><td>57</td><td>USDJPY</td><td>2026-07-30 08:52</td><td><span class='loss'>LOSS</span></td><td>$-56.67</td></tr><tr><td>58</td><td>EURJPY</td><td>2026-07-30 20:26</td><td><span class='win'>WIN</span></td><td>$230.53</td></tr><tr><td>59</td><td>USDJPY</td><td>2026-07-30 21:05</td><td><span class='win'>WIN</span></td><td>$228.56</td></tr><tr><td>60</td><td>CHFJPY</td><td>2026-07-30 22:01</td><td><span class='win'>WIN</span></td><td>$55.17</td></tr><tr><td>61</td><td>EURJPY</td><td>2026-07-30 22:01</td><td><span class='win'>WIN</span></td><td>$305.07</td></tr><tr><td>62</td><td>USDJPY</td><td>2026-07-30 22:01</td><td><span class='win'>WIN</span></td><td>$42.70</td></tr><tr><td>63</td><td>GBPUSD</td><td>2026-07-30 23:54</td><td><span class='win'>WIN</span></td><td>$56.02</td></tr><tr><td>64</td><td>EURJPY</td><td>2026-07-31 00:43</td><td><span class='loss'>LOSS</span></td><td>$-63.33</td></tr><tr><td>65</td><td>CHFJPY</td><td>2026-08-04 23:31</td><td><span class='loss'>LOSS</span></td><td>$-49.54</td></tr><tr><td>66</td><td>EURUSD</td><td>2026-08-03 04:42</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>67</td><td>EURUSD</td><td>2026-08-04 08:46</td><td><span class='win'>WIN</span></td><td>$231.90</td></tr><tr><td>68</td><td>CHFJPY</td><td>2026-08-04 23:31</td><td><span class='win'>WIN</span></td><td>$41.40</td></tr><tr><td>69</td><td>EURJPY</td><td>2026-08-05 01:03</td><td><span class='win'>WIN</span></td><td>$41.40</td></tr><tr><td>70</td><td>USDJPY</td><td>2026-08-05 21:12</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>71</td><td>AUDCAD</td><td>2026-08-10 18:58</td><td><span class='loss'>LOSS</span></td><td>$-46.00</td></tr><tr><td>72</td><td>AUDCAD</td><td>2026-08-11 01:53</td><td><span class='loss'>LOSS</span></td><td>$-45.47</td></tr><tr><td>73</td><td>EURJPY</td><td>2026-08-11 09:24</td><td><span class='loss'>LOSS</span></td><td>$-46.48</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+</body>
+</html>

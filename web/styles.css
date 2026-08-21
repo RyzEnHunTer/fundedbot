@@ -1,0 +1,155 @@
+
+    :root {
+        --bg: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text: #f8fafc;
+        --accent: #3b82f6;
+        --accent-hover: #60a5fa;
+        --success: #10b981;
+        --danger: #ef4444;
+        --border: rgba(255, 255, 255, 0.1);
+    }
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: radial-gradient(circle at top right, rgba(59,130,246,0.15), transparent 40%),
+                          radial-gradient(circle at bottom left, rgba(16,185,129,0.1), transparent 40%);
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+        background: -webkit-linear-gradient(45deg, #3b82f6, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+    .subtitle {
+        color: #94a3b8;
+        font-size: 1.1rem;
+    }
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .tab-btn {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .tab-btn:hover {
+        background: rgba(59,130,246,0.2);
+        border-color: var(--accent);
+    }
+    .tab-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 0 15px rgba(59,130,246,0.4);
+    }
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+    .tab-content.active {
+        display: block;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .metric-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .metric-card:hover {
+        transform: translateY(-5px);
+    }
+    .metric-title {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .positive { color: var(--success); }
+    .negative { color: var(--danger); }
+    
+    /* Charts */
+    .chart-container {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(12px);
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    /* Table */
+    .table-container {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        overflow-x: auto;
+        padding: 1rem;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+    th {
+        color: #94a3b8;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+    tr:hover td {
+        background: rgba(255,255,255,0.02);
+    }
+    
