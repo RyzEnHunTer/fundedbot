@@ -189,13 +189,13 @@ class LiveBotV2:
                     if active_session == 'None':
                         current_h = now.hour
                         if 5 <= current_h < 7:
-                            msg = "☕ <b>London Lunch / Pre-NY Gap</b> (05:00 - 07:00 ET)"
+                            msg = "☕ <b>Outside Killzone (London Lunch Gap)</b>\nBot is paused until NY Killzone opens at 07:00 ET."
                         elif 10 <= current_h < 20:
-                            msg = "🌙 <b>Post-NY / Asian Pre-Market</b> (10:00 - 20:00 ET)"
+                            msg = "🌙 <b>Outside Killzone (Post-NY Gap)</b>\nBot is paused until Asian Killzone opens at 20:00 ET."
                         else:
-                            msg = "💤 <b>Outside Killzones</b>"
+                            msg = "💤 <b>Outside Killzone</b>\nBot is paused until the next Killzone opens."
                     else:
-                        msg = f"🌍 <b>Session Open: {active_session}</b>\nTransitioned from {self.current_global_session}"
+                        msg = f"🌍 <b>{active_session} Killzone Open!</b>\nBot is now actively hunting for setups."
                     self.notifier.send_message(msg)
                     print(f"\n[NOTIFY] Session Shift: {self.current_global_session} -> {active_session}")
                 self.current_global_session = active_session
