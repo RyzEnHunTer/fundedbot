@@ -187,7 +187,13 @@ class LiveBotV2:
             if active_session != self.current_global_session:
                 if self.current_global_session is not None:
                     if active_session == 'None':
-                        msg = "🌙 <b>Market Dead Zone</b> (17:00 - 18:00 ET)"
+                        current_h = now.hour
+                        if 5 <= current_h < 7:
+                            msg = "☕ <b>London Lunch / Pre-NY Gap</b> (05:00 - 07:00 ET)"
+                        elif 10 <= current_h < 20:
+                            msg = "🌙 <b>Post-NY / Asian Pre-Market</b> (10:00 - 20:00 ET)"
+                        else:
+                            msg = "💤 <b>Outside Killzones</b>"
                     else:
                         msg = f"🌍 <b>Session Open: {active_session}</b>\nTransitioned from {self.current_global_session}"
                     self.notifier.send_message(msg)
