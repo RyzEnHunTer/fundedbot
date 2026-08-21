@@ -22,7 +22,11 @@ class TradeNotifier:
     def _send_discord(self, message):
         if not self.discord_url: return
         
-        data = {"content": message}
+        # Convert HTML tags to Discord Markdown
+        discord_msg = message.replace('<b>', '**').replace('</b>', '**')
+        discord_msg = discord_msg.replace('<i>', '*').replace('</i>', '*')
+        
+        data = {"content": discord_msg}
         req = urllib.request.Request(
             self.discord_url, 
             data=json.dumps(data).encode('utf-8'),
