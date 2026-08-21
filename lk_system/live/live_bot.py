@@ -52,8 +52,8 @@ from lk_system.core.imbalance import ImbalanceDetector
 from lk_system.core.market_conditions import AdvancedConditionCalculator
 from lk_system.core.session_analyzer import DynamicSessionAnalyzer
 
-# ─── Configuration ───────────────────────────────────────────────────────
-PAIRS = ['AUDCAD', 'CHFJPY', 'EURJPY', 'EURUSD', 'USTEC']
+# Default fallback if config doesn't exist
+DEFAULT_PAIRS = ['AUDCAD', 'CHFJPY', 'EURJPY', 'EURUSD', 'USTEC']
 MAGIC_NUMBER = 999111
 RR_RATIO = 6.0
 BREAKEVEN_RR = 3.0
@@ -61,7 +61,8 @@ PARTIAL_RATIO = 0.15
 
 # ─── Live Bot V2 ─────────────────────────────────────────────────────────
 class LiveBotV2:
-    def __init__(self, daily_losses, circuit_breaker_percent, risk_percent, mt5_path):
+    def __init__(self, pairs, daily_losses, circuit_breaker_percent, risk_percent, mt5_path):
+        self.pairs = pairs
         self.bridge = MT5Bridge(magic_number=MAGIC_NUMBER, warmup_days=7, mt5_path=mt5_path)
         self.risk_percent = risk_percent
         self.risk_manager = PortfolioRiskManager(
@@ -77,17 +78,17 @@ class LiveBotV2:
         self.current_global_session = None
         
         # Core SMC components — one per pair (same as backtest)
-        self.session_managers = {p: SessionManager() for p in PAIRS}
-        self.structure_analyzers_m15 = {p: MarketStructure() for p in PAIRS}
-        self.structure_analyzers_m1 = {p: MarketStructure() for p in PAIRS}
-        self.imbalance_detectors_m1 = {p: ImbalanceDetector() for p in PAIRS}
-        self.imbalance_detectors_m5 = {p: ImbalanceDetector() for p in PAIRS}
-        self.condition_calculators = {p: AdvancedConditionCalculator() for p in PAIRS}
-        self.session_analyzers = {p: DynamicSessionAnalyzer(drop_threshold=0.70) for p in PAIRS}
+        self.session_managers = {p: SessionManager() for p in self.pairs}
+        self.structure_analyzers_m15 = {p: MarketStructure() for p in self.pairs}
+        self.structure_analyzers_m1 = {p: MarketStructure() for p in self.pairs}
+        self.imbalance_detectors_m1 = {p: ImbalanceDetector() for p in self.pairs}
+        self.imbalance_detectors_m5 = {p: ImbalanceDetector() for p in self.pairs}
+        self.condition_calculators = {p: AdvancedConditionCalculator() for p in self.pairs}
+        self.session_analyzers = {p: DynamicSessionAnalyzer(drop_threshold=0.70) for p in self.pairs}
         
         # State tracking per pair — exactly mirrors tick_engine.py
         self.state = {}
-        for p in PAIRS:
+        for p in self.pairs:
             self.state[p] = {
                 'awaiting_short_fvg': False,
                 'awaiting_short_sl': 0.0,
@@ -113,12 +114,12 @@ class LiveBotV2:
         if not self.bridge.connect():
             return False
             
-        self.bridge.warm_up(PAIRS)
+        self.bridge.warm_up(self.pairs)
         
         print("[INIT] Initializing core analyzers with full history...")
         startup_msg = "🟢 <b>LK SMC LIVE BOT V2 - STARTED</b>\n\n<b>Analyzers Initialized:</b>\n"
         
-        for pair in PAIRS:
+        for pair in self.pairs:
             df_m15 = self.bridge.get_rates(pair, 'M15', 2000)
             if df_m15 is None:
                 print(f"  WARNING: No M15 data for {pair}")
@@ -147,7 +148,7 @@ class LiveBotV2:
             
         print("=" * 60)
         print("    LK SMC LIVE BOT V2 - PRODUCTION")
-        print(f"    Monitoring: {PAIRS}")
+        print(f"    Monitoring: {self.pairs}")
         print("=" * 60)
         
         try:
@@ -226,7 +227,7 @@ class LiveBotV2:
             del self.tracked_positions[t]
         # ──────────────────────────────────────────────────
         
-        for pair in PAIRS:
+        for pair in self.pairs:
             self.bridge.update_cache(pair)
             
             pair_positions = [p for p in open_positions if p['symbol'] == pair]
@@ -574,12 +575,16 @@ def main_menu():
         if choice == '1':
             rules = config.get("trading_rules", {})
             mt5_path = rules.get("mt5_terminal_path", "")
+            nasdaq_sym = rules.get("nasdaq_symbol", "USTEC")
             max_dd = rules.get("max_drawdown_percent", 10.0)
             daily_losses = rules.get("max_daily_losses", 2)
             risk_percent = rules.get("risk_percent", 1.3)
             circuit_breaker = max_dd - 1.0
             
+            active_pairs = ['AUDCAD', 'CHFJPY', 'EURJPY', 'EURUSD', nasdaq_sym]
+            
             print(f"\n[STARTING ENGINE]")
+            print(f"-> Active Pairs: {', '.join(active_pairs)}")
             print(f"-> Max Daily Losses: {daily_losses}")
             print(f"-> Risk Per Trade: {risk_percent}%")
             print(f"-> Global Circuit Breaker: {circuit_breaker}%")
@@ -587,6 +592,7 @@ def main_menu():
             print("========================================\n")
             
             bot = LiveBotV2(
+                pairs=active_pairs,
                 daily_losses=daily_losses, 
                 circuit_breaker_percent=circuit_breaker,
                 risk_percent=risk_percent,
@@ -601,6 +607,9 @@ def main_menu():
             try:
                 mt5_in = input(f"MT5 terminal64.exe Path (Leave blank to keep current):\n> ")
                 if mt5_in.strip(): rules['mt5_terminal_path'] = mt5_in.strip()
+                
+                nasdaq_in = input(f"Broker's Nasdaq Symbol (e.g. NAS100, USTEC) [{rules.get('nasdaq_symbol', 'USTEC')}]: ")
+                if nasdaq_in.strip(): rules['nasdaq_symbol'] = nasdaq_in.strip().upper()
                 
                 max_dd_in = input(f"Account Max Drawdown % [{rules.get('max_drawdown_percent')}]: ")
                 if max_dd_in.strip(): rules['max_drawdown_percent'] = float(max_dd_in)
