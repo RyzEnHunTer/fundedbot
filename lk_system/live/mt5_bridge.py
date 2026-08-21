@@ -12,7 +12,8 @@ import numpy as np
 import pytz
 import datetime
 import time
-
+import sys
+import os
 
 class MT5Bridge:
     """
@@ -47,6 +48,24 @@ class MT5Bridge:
             if not self.mt5_path:
                 print("  -> TIP: If MT5 isn't opening automatically, configure the MT5 Terminal Path in the Main Menu [2].")
             return False
+            
+        term_info = mt5.terminal_info()
+        if term_info is None:
+            print("  [ERROR] Could not retrieve terminal info.")
+            return False
+            
+        if not term_info.trade_allowed:
+            print("\n" + "!"*50)
+            print("  🚨 MT5 AUTO-TRADING IS DISABLED! 🚨")
+            print("  Please click the 'Algo Trading' button at the top")
+            print("  of your MT5 terminal (it should turn green/play).")
+            print("!"*50 + "\n")
+            
+            while not mt5.terminal_info().trade_allowed:
+                sys.stdout.write('\r  Waiting for Algo Trading to be enabled...')
+                sys.stdout.flush()
+                time.sleep(1)
+            print("\n  [TickCacheBridge] Auto-Trading Enabled!")
             
         print("  [TickCacheBridge] MT5 Connected.")
         return True
