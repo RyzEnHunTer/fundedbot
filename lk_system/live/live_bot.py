@@ -575,11 +575,21 @@ def main_menu():
         if choice == '1':
             rules = config.get("trading_rules", {})
             mt5_path = rules.get("mt5_terminal_path", "")
-            nasdaq_sym = rules.get("nasdaq_symbol", "USTEC")
+            nasdaq_sym = rules.get("nasdaq_symbol", "AUTO")
             max_dd = rules.get("max_drawdown_percent", 10.0)
             daily_losses = rules.get("max_daily_losses", 2)
             risk_percent = rules.get("risk_percent", 1.3)
             circuit_breaker = max_dd - 1.0
+            
+            if nasdaq_sym == "AUTO":
+                print("\n[INIT] Auto-detecting Nasdaq symbol on your broker...")
+                detected = MT5Bridge.auto_detect_nasdaq(mt5_path)
+                if detected:
+                    nasdaq_sym = detected
+                    print(f"[INIT] Success! Found Nasdaq symbol: {nasdaq_sym}")
+                else:
+                    nasdaq_sym = "USTEC"
+                    print(f"[INIT] Failed to auto-detect Nasdaq. Defaulting to {nasdaq_sym}")
             
             active_pairs = ['AUDCAD', 'CHFJPY', 'EURJPY', 'EURUSD', nasdaq_sym]
             
@@ -608,7 +618,7 @@ def main_menu():
                 mt5_in = input(f"MT5 terminal64.exe Path (Leave blank to keep current):\n> ")
                 if mt5_in.strip(): rules['mt5_terminal_path'] = mt5_in.strip()
                 
-                nasdaq_in = input(f"Broker's Nasdaq Symbol (e.g. NAS100, USTEC) [{rules.get('nasdaq_symbol', 'USTEC')}]: ")
+                nasdaq_in = input(f"Broker's Nasdaq Symbol (e.g. NAS100, USTEC) or AUTO [{rules.get('nasdaq_symbol', 'AUTO')}]: ")
                 if nasdaq_in.strip(): rules['nasdaq_symbol'] = nasdaq_in.strip().upper()
                 
                 max_dd_in = input(f"Account Max Drawdown % [{rules.get('max_drawdown_percent')}]: ")

@@ -37,6 +37,27 @@ class MT5Bridge:
         # Candle cache: symbol -> { 'M1': df, 'M5': df, 'M15': df }
         self._candle_cache = {}
         
+    @staticmethod
+    def auto_detect_nasdaq(mt5_path=None):
+        """Auto-detect the broker's specific Nasdaq symbol name."""
+        init_args = {}
+        if mt5_path and os.path.exists(mt5_path):
+            init_args['path'] = mt5_path
+            
+        if not mt5.initialize(**init_args):
+            return None
+            
+        aliases = ['USTEC', 'NAS100', 'US100', 'NDX', 'USTech100', 'US100.cash', 'NAS100.cash', 'NDX100', 'US100_m', 'US100.c']
+        found = None
+        for alias in aliases:
+            info = mt5.symbol_info(alias)
+            if info is not None:
+                found = alias
+                break
+                
+        mt5.shutdown()
+        return found
+        
     def connect(self):
         print("[TickCacheBridge] Connecting to MetaTrader 5...")
         init_args = {}
