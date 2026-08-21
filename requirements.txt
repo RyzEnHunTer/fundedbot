@@ -1,4 +1,4 @@
-MetaTrader5==5.0.45
+MetaTrader5
 pandas==2.2.2
 pytz==2024.1
 requests==2.32.3
