@@ -188,7 +188,7 @@ class LiveBotV2:
             if active_session != self.current_global_session:
                 if self.current_global_session is not None:
                     if active_session == 'None':
-                        current_h = now.hour
+                        current_h = datetime.datetime.now(self.eastern).hour
                         if 5 <= current_h < 7:
                             msg = "☕ <b>Outside Killzone (London Lunch Gap)</b>\nBot is paused until NY Killzone opens at 07:00 ET."
                         elif 10 <= current_h < 20:
